@@ -1,0 +1,339 @@
+name: DirtEssentials
+version: '${version}'
+main: net.dirtcraft.plugins.dirtessentials.DirtEssentials
+api-version: 1.16
+depend: [ Vault, LuckPerms ]
+authors: [ DeJustinHD ]
+description: Essentials  but better for DirtCraft 1.16+
+commands:
+    repair:
+        description: Repairs your held item
+    nbt:
+        description: Shows the NBT data of the item you are holding
+    weather:
+        description: Changes the weather
+    enderchest:
+        description: Opens an enderchest of a player or your own
+        aliases: [ ec, echest ]
+    top:
+        description: Teleports you to the highest block
+        aliases: [ highest ]
+    broadcast:
+        description: Broadcasts a message to the whole server
+        aliases: [ bc ]
+    smite:
+        description: Smites a player
+    feed:
+        description: Feeds a player
+    heal:
+        description: Heals a player
+    unalive:
+        description: Makes a player unalive
+    fly:
+        description: Toggles flight for a player
+    kill:
+        description: Kills a player
+    hat:
+        description: Puts the item you are holding on your head
+    clear:
+        description: Clears a player's inventory
+        aliases: [ ci, clearinventory ]
+    trash:
+        description: Opens a trash can GUI
+        aliases: [ del, void ]
+    gmc:
+        description: Sets your gamemode to creative
+        aliases: [ creative ]
+    gms:
+        description: Sets your gamemode to survival
+        aliases: [ survival ]
+    gmsp:
+        description: Sets your gamemode to spectator
+        aliases: [ spectator ]
+    gma:
+        description: Sets your gamemode to adventure
+        aliases: [ adventure ]
+    time:
+        description: Changes the time
+    bal:
+        description: Shows your balance or another player's balance
+        aliases: [ balance, money ]
+    pay:
+        description: Pays another player
+    eco:
+        description: Economy commands
+        aliases: [ economy ]
+    baltop:
+        description: Shows the top richest players
+        aliases: [ moneytop ]
+    craft:
+        description: Opens a crafting table
+        aliases: [ workbench ]
+    anvil:
+        description: Opens an anvil
+    cartographytable:
+        description: Opens a cartography table
+        aliases: [ cartography ]
+    grindstone:
+        description: Opens a grindstone
+    loom:
+        description: Opens a loom
+    smithingtable:
+        description: Opens a smithing table
+        aliases: [ smithing ]
+    stonecutter:
+        description: Opens a stonecutter
+    skull:
+        description: Gives you a skull of a player
+        aliases: [ head ]
+    god:
+        description: Toggles god mode
+    xp:
+        description: Gives you or another player XP
+        aliases: [ experience ]
+    break:
+        description: Breaks the block you are looking at
+    speed:
+        description: Changes your speed or another player's speed
+    enchant:
+        description: Enchants an item
+    reload:
+        description: Reload configs
+    createkit:
+        description: Creates a kit
+    delkit:
+        description: Deletes a kit
+    kits:
+        description: Shows all kits
+    showkit:
+        description: Shows a kit
+    kit:
+        description: Claim a kit
+    sethome:
+        description: Sets your home
+    home:
+        description: Teleports you to your home
+    delhome:
+        description: Deletes your home
+    homes:
+        description: Shows all your homes
+    back:
+        description: Teleports you to your last death location
+    otherhome:
+        description: Utility commands for other players homes
+        aliases: [ ohome ]
+    tppos:
+        description: Teleports you to a position
+    seen:
+        description: Shows when a player was last online
+    sudo:
+        description: Runs a command as another player
+    nick:
+        description: Changes your nickname
+    othernick:
+        description: Utility commands for other players nicknames
+        aliases: [ onick ]
+    itemname:
+        description: Changes the name of an item
+        aliases: [ iname, rename ]
+    lore:
+        description: Changes the lore of an item
+
+permissions:
+    dirtessentials.repair:
+        description: Allows the player to use /repair
+    dirtessentials.nbt:
+        description: Allows the player to use /nbt
+    dirtessentials.weather:
+        description: Allows the player to use /weather
+    dirtessentials.enderchest:
+        description: Allows the player to use /enderchest
+    dirtessentials.enderchest.others:
+        description: Allows the player to use /enderchest on other players
+    dirtessentials.top:
+        description: Allows the player to use /top
+    dirtessentials.broadcast:
+        description: Allows the player to use /broadcast
+    dirtessentials.smite:
+        description: Allows the player to use /smite
+    dirtessentials.feed:
+        description: Allows the player to use /feed
+    dirtessentials.feed.others:
+        description: Allows the player to use /feed on other players
+    dirtessentials.heal:
+        description: Allows the player to use /heal
+    dirtessentials.heal.others:
+        description: Allows the player to use /heal on other players
+    dirtessentials.unalive:
+        description: Allows the player to use /unalive
+    dirtessentials.fly:
+        description: Allows the player to use /fly
+    dirtessentials.fly.others:
+        description: Allows the player to use /fly on other players
+    dirtessentials.kill:
+        description: Allows the player to use /kill
+    dirtessentials.hat:
+        description: Allows the player to use /hat
+    dirtessentials.hat.other:
+        description: Allows the player to use /hat on other players
+    dirtessentials.clear:
+        description: Allows the player to use /clear
+    dirtessentials.trash:
+        description: Allows the player to use /trash
+    dirtessentials.gmc:
+        description: Allows the player to use /gmc
+    dirtessentials.gms:
+        description: Allows the player to use /gms
+    dirtessentials.gmsp:
+        description: Allows the player to use /gmsp
+    dirtessentials.gma:
+        description: Allows the player to use /gma
+    dirtessentials.time:
+        description: Allows the player to use /time
+    dirtessentials.bal:
+        description: Allows the player to use /bal
+    dirtessentials.bal.others:
+        description: Allows the player to use /bal on other players
+    dirtessentials.pay:
+        description: Allows the player to use /pay
+    dirtessentials.eco:
+        description: Allows the player to use /eco
+    dirtessentials.baltop:
+        description: Allows the player to use /baltop
+    dirtessentials.craft:
+        description: Allows the player to use /craft
+    dirtessentials.anvil:
+        description: Allows the player to use /anvil
+    dirtessentials.cartographytable:
+        description: Allows the player to use /cartographytable
+    dirtessentials.grindstone:
+        description: Allows the player to use /grindstone
+    dirtessentials.loom:
+        description: Allows the player to use /loom
+    dirtessentials.smithingtable:
+        description: Allows the player to use /smithingtable
+    dirtessentials.stonecutter:
+        description: Allows the player to use /stonecutter
+    dirtessentials.skull:
+        description: Allows the player to use /skull
+    dirtessentials.god:
+        description: Allows the player to use /god
+    dirtessentials.god.others:
+        description: Allows the player to use /god on other players
+    dirtessentials.xp:
+        description: Allows the player to use /xp
+    dirtessentials.break:
+        description: Allows the player to use /break
+    dirtessentials.speed:
+        description: Allows the player to use /speed
+    dirtessentials.enchant:
+        description: Allows the player to use /enchant
+    dirtessentials.reload:
+        description: Allows the player to use /reload
+    dirtessentials.createkit:
+        description: Allows the player to use /createkit
+    dirtessentials.delkit:
+        description: Allows the player to use /delkit
+    dirtessentials.kits:
+        description: Allows the player to use /kits
+    dirtessentials.kit.*:
+        description: Allows the player to claim all kits
+    dirtessentials.showkit.*:
+        description: Allows the player to show all kits
+    dirtessentials.sethome:
+        description: Allows the player to use /sethome
+    dirtessentials.home:
+        description: Allows the player to use /home
+    dirtessentials.delhome:
+        description: Allows the player to use /delhome
+    dirtessentials.homes:
+        description: Allows the player to use /homes
+    dirtessentials.back:
+        description: Allows the player to use /back
+    dirtessentials.otherhome:
+        description: Allows the player to use /otherhome
+    dirtessentials.staff:
+        description: Marks the player as staff
+    dirtessentials.tppos:
+        description: Allows the player to use /tppos
+    dirtessentials.seen:
+        description: Allows the player to use /seen
+    dirtessentials.sudo:
+        description: Allows the player to use /sudo
+    dirtessentials.nick:
+        description: Allows the player to use /nick
+    dirtessentials.othernick:
+        description: Allows the player to use /othernick
+    dirtessentials.itemname:
+        description: Allows the player to use /itemname
+    dirtessentials.lore:
+        description: Allows the player to use /lore
+
+
+    dirtessentials.admin:
+        description: Common permissions for admins
+        children:
+            dirtessentials.repair: true
+            dirtessentials.nbt: true
+            dirtessentials.weather: true
+            dirtessentials.enderchest: true
+            dirtessentials.enderchest.others: true
+            dirtessentials.top: true
+            dirtessentials.broadcast: true
+            dirtessentials.smite: true
+            dirtessentials.feed: true
+            dirtessentials.feed.others: true
+            dirtessentials.heal: true
+            dirtessentials.heal.others: true
+            dirtessentials.unalive: true
+            dirtessentials.fly: true
+            dirtessentials.fly.others: true
+            dirtessentials.kill: true
+            dirtessentials.hat: true
+            dirtessentials.hat.other: true
+            dirtessentials.clear: true
+            dirtessentials.trash: true
+            dirtessentials.gmc: true
+            dirtessentials.gms: true
+            dirtessentials.gmsp: true
+            dirtessentials.gma: true
+            dirtessentials.time: true
+            dirtessentials.bal: true
+            dirtessentials.bal.others: true
+            dirtessentials.pay: true
+            dirtessentials.eco: true
+            dirtessentials.baltop: true
+            dirtessentials.craft: true
+            dirtessentials.anvil: true
+            dirtessentials.cartographytable: true
+            dirtessentials.grindstone: true
+            dirtessentials.loom: true
+            dirtessentials.smithingtable: true
+            dirtessentials.stonecutter: true
+            dirtessentials.skull: true
+            dirtessentials.god: true
+            dirtessentials.god.others: true
+            dirtessentials.xp: true
+            dirtessentials.break: true
+            dirtessentials.speed: true
+            dirtessentials.enchant: true
+            dirtessentials.reload: true
+            dirtessentials.createkit: true
+            dirtessentials.delkit: true
+            dirtessentials.kits: true
+            dirtessentials.kit.*: true
+            dirtessentials.showkit.*: true
+            dirtessentials.sethome: true
+            dirtessentials.home: true
+            dirtessentials.delhome: true
+            dirtessentials.homes: true
+            dirtessentials.back: true
+            dirtessentials.otherhome: true
+            dirtessentials.staff: true
+            dirtessentials.tppos: true
+            dirtessentials.seen: true
+            dirtessentials.sudo: true
+            dirtessentials.nick: true
+            dirtessentials.othernick: true
+            dirtessentials.itemname: true
+            dirtessentials.lore: true

@@ -1,0 +1,52 @@
+# Configuration file for Dirt-Essentials
+
+[general]
+    # Wether debug-messages should be printed to the console (has some usefull information)
+    # Default: true
+    debug = true
+
+    # The prefix of the /broadcast command message
+    # Default: "&7[&cDirtCraft&7]"
+    broadcastPrefix = "&7[&cDirtCraft&7]"
+
+    # How many players are allowed to be on the server at the same time
+    # INFO: Set the limit in the server.properties file to 999
+    # Default: 999
+    maxPlayers = 999
+
+    # Can staff players join even if the server is full?
+    # Default: true
+    staffJoinFull = true
+
+    # The message that is sent to the player when he tries to join a full server
+    # Default: "&4The server is currently full!\n\n&cPlease try again later!"
+    fullMessage = "&4The server is currently full!\n\n&cPlease try again later!"
+
+[economy]
+    # The character to be used for the currency
+    # Default: "$"
+    currencySymbol = "$"
+
+    # The default amount of money a player gets when he joins the server for the first time
+    # Default: 800
+    defaultMoney = 800
+
+    # How many players should be displayed in the /baltop command?
+    # Max: 15
+    # Default: 10
+    baltopSize = 10
+
+[home]
+    # The maximum amount of homes a player can have
+    # Default: 50
+    maxHomes = 50
+
+    # The cooldown for the /home command
+    # The value is in seconds!
+    # Default: 10
+    homeCooldown = 10
+
+    # How many homes should be displayed in the /homes command and the /ohomes command?
+    # Max: 15
+    # Default: 10
+    homesSize = 10
