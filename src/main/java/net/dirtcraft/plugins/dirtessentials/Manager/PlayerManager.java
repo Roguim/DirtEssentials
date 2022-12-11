@@ -47,6 +47,10 @@ public class PlayerManager {
 		return null;
 	}
 
+	public static String getUsername(UUID uuid) {
+		return playerData.get(uuid).getUsername();
+	}
+
 	public static Map<UUID, String> getPlayerMap() {
 		Map<UUID, String> playerMap = new HashMap<>();
 

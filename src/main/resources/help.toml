@@ -1,0 +1,17 @@
+# Configuration File for the /help command
+
+[[page]]
+    # The unqiue name of the page
+    name = "test"
+
+    # The title of the page
+    # Supports color codes
+    title = "&6Testing Testing"
+
+    # The content of the page
+    # Supports color codes, new lines and executable commands by enclosing them in []
+    content = [
+        "&7This is just a sample page.",
+        "&7You can add as many lines as you want.",
+        "&7You can also add commands by enclosing them in brackets like this: [&b/help]",
+    ]

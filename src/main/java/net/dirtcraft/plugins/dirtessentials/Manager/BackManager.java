@@ -1,8 +1,13 @@
 package net.dirtcraft.plugins.dirtessentials.Manager;
 
+import net.dirtcraft.plugins.dirtessentials.Utils.Utilities;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.HashMap;
@@ -29,5 +34,20 @@ public class BackManager implements Listener {
 		if (event.getCause() == PlayerTeleportEvent.TeleportCause.COMMAND || event.getCause() == PlayerTeleportEvent.TeleportCause.PLUGIN) {
 			setBackLocation(event.getPlayer().getUniqueId(), event.getFrom());
 		}
+	}
+
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent event) {
+		Player player = event.getEntity();
+		World world = player.getWorld();
+
+		if (Utilities.config.general.backWorldsWhitelist) {
+			if (!Utilities.config.general.backWorlds.contains(world.getName())) return;
+		} else {
+			if (Utilities.config.general.backWorlds.contains(world.getName())) return;
+		}
+
+		BackManager.setBackLocation(player.getUniqueId(), player.getLocation());
+		player.sendMessage(ChatColor.GRAY + "Use " + ChatColor.RED + "/back" + ChatColor.GRAY + " to teleport back to where you died!");
 	}
 }

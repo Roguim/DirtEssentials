@@ -1,5 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
-
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'java'
@@ -27,20 +25,29 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.jetbrains:annotations:23.0.0'
+    shadow 'com.fasterxml.jackson.core:jackson-annotations:2.14.0'
+    shadow 'com.fasterxml:jackson-xml-databind:0.6.2'
+    shadow 'org.jetbrains:annotations:23.0.0'
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-    implementation 'com.moandjiezana.toml:toml4j:0.7.2'
-    implementation 'com.h2database:h2:1.4.200'
-    implementation group: 'com.zaxxer', name: 'HikariCP', version:'4.0.3'
+    shadow 'com.moandjiezana.toml:toml4j:0.7.2'
+    shadow 'com.h2database:h2:1.4.200'
+    shadow group: 'com.zaxxer', name: 'HikariCP', version:'4.0.3'
     compileOnly "com.github.MilkBowl:VaultAPI:1.7"
-    implementation 'com.google.code.gson:gson:2.10'
-    implementation 'de.tr7zw:item-nbt-api:2.10.0'
+    shadow 'com.google.code.gson:gson:2.10'
+    shadow 'de.tr7zw:item-nbt-api:2.10.0'
 }
 
 shadowJar {
     archiveBaseName.set('dirt-essentials')
+    configurations = [project.configurations.shadow]
     archiveClassifier.set('')
+    relocate 'com.zaxxer',                  'net.dirtcraft.libs.com.zaxxer'
+    relocate 'com.google.code.gson',        'net.dirtcraft.libs.com.google.code.gson'
+    relocate 'com.h2database',              'net.dirtcraft.libs.com.h2database'
+    relocate 'de.tr7zw.changeme.nbtapi',    'net.dirtcraft.libs.de.tr7zw.changeme.nbtapi'
+    relocate 'com.moandjiezana.toml',       'net.dirtcraft.libs.com.moandjiezana.toml'
 }
+build.dependsOn(shadowJar)
 
 def targetJavaVersion = 8
 java {

@@ -69,7 +69,7 @@ public class KitManager {
 
 	public static boolean isKitClaimable(String kitName, UUID uniqueId) {
 		PlayerKitTracker tracker = kitTracker.stream().filter(kit -> kit.getUuid().equals(uniqueId) && kit.getKitName().equalsIgnoreCase(kitName)).findFirst().orElse(null);
-		if (tracker == null) return false;
+		if (tracker == null) return true;
 
 		LocalDateTime lastClaimed = tracker.getLastClaimed();
 		LocalDateTime now = LocalDateTime.now();
@@ -91,6 +91,14 @@ public class KitManager {
 				return lastClaimed.plusDays(cooldown).isBefore(now);
 			default:
 				return false;
+		}
+	}
+
+	public static void setCooldown(String name, UUID uniqueId) {
+		if (kitTracker.stream().noneMatch(kit -> kit.getUuid().equals(uniqueId) && kit.getKitName().equalsIgnoreCase(name))) {
+			kitTracker.add(new PlayerKitTracker(uniqueId, name, LocalDateTime.now()));
+		} else {
+			kitTracker.stream().filter(kit -> kit.getUuid().equals(uniqueId) && kit.getKitName().equalsIgnoreCase(name)).findFirst().ifPresent(kit -> kit.setLastClaimed(LocalDateTime.now()));
 		}
 	}
 }

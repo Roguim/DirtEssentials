@@ -40,20 +40,16 @@ public class EconomyOperations {
 		});
 	}
 
-	public static boolean createPlayerBalance(final UUID playerUuid) {
-		try (Connection connection = Database.getConnection();
-		     PreparedStatement statement = connection.prepareStatement("INSERT INTO balances VALUES (?, ?)")) {
-			System.out.println("Creating player balance for " + playerUuid);
-			statement.setString(1, playerUuid.toString());
-			statement.setDouble(2, Utilities.config.economy.defaultMoney);
-			statement.executeUpdate();
+	public static void createPlayerBalance(final UUID playerUuid) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("INSERT INTO balances VALUES (?, ?)")) {
+				statement.setString(1, playerUuid.toString());
+				statement.setDouble(2, Utilities.config.economy.defaultMoney);
+				statement.executeUpdate();
 
-			DirtEssentials.getDirtEconomy().addAccount(playerUuid, Utilities.config.economy.defaultMoney);
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+			} catch (SQLException ignored) { }
+		});
 	}
 
 	public static void withdrawMoney(final UUID uniqueId, final double amount) {

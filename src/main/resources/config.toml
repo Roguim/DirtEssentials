@@ -22,6 +22,40 @@
     # Default: "&4The server is currently full!\n\n&cPlease try again later!"
     fullMessage = "&4The server is currently full!\n\n&cPlease try again later!"
 
+    # The prefix character for nicknames
+    # Default: "~"
+    nicknamePrefix = "~"
+
+    # After how many seconds are players marked as afk?
+    # Default: 60
+    afkTime = 60
+
+    # Will players be kicked when they are afk for too long?
+    # Default: true
+    afkKick = true
+
+    # After how many second will players be kicked once they are afk?
+    # This will be ignored if the above value is set to true
+    # Default: 240
+    afkKickTime = 240
+
+    # The message that is sent to the player when he is kicked for being afk
+    # Default: "&4You have been kicked for being afk for too long!"
+    afkKickMessage = "&4You have been kicked for being afk for too long!"
+
+    # Worlds that people may or may not save the death point for /back
+    # Default: ["world", "world/DIM1", "world/DIM-1"]
+    backWorlds = [
+        "world",
+        "world/DIM1",
+        "world/DIM-1"
+    ]
+
+    # Wether the above list should be a whitelist or a blacklist
+    # Default: true
+    backWorldsWhitelist = true
+
+
 [economy]
     # The character to be used for the currency
     # Default: "$"
@@ -36,17 +70,23 @@
     # Default: 10
     baltopSize = 10
 
+
 [home]
-    # The maximum amount of homes a player can have
-    # Default: 50
-    maxHomes = 50
+    # The default amount of homes new players get.
+    # Default: 1
+    defaultHomes = 1
 
     # The cooldown for the /home command
     # The value is in seconds!
-    # Default: 10
-    homeCooldown = 10
+    # Default: 60
+    homeCooldown = 60
 
     # How many homes should be displayed in the /homes command and the /ohomes command?
     # Max: 15
     # Default: 10
     homesSize = 10
+
+[worth]
+    # The identifier of the server
+    # If this is empty the plugin will not fetch worth data
+    name = ""

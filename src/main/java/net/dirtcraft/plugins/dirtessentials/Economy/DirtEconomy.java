@@ -2,6 +2,7 @@ package net.dirtcraft.plugins.dirtessentials.Economy;
 
 import net.dirtcraft.plugins.dirtessentials.Database.Callbacks.CreatePlayer;
 import net.dirtcraft.plugins.dirtessentials.Database.EconomyOperations;
+import net.dirtcraft.plugins.dirtessentials.DirtEssentials;
 import net.dirtcraft.plugins.dirtessentials.Utils.Utilities;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -570,7 +571,9 @@ public class DirtEconomy implements Economy {
 	 */
 	@Override
 	public boolean createPlayerAccount(OfflinePlayer player) {
-		return EconomyOperations.createPlayerBalance(player.getUniqueId());
+		addAccount(player.getUniqueId(), Utilities.config.economy.defaultMoney);
+		EconomyOperations.createPlayerBalance(player.getUniqueId());
+		return true;
 	}
 
 	/**

@@ -1,14 +1,15 @@
 package net.dirtcraft.plugins.dirtessentials.Database;
 
-import net.dirtcraft.plugins.dirtessentials.Data.Home;
-import net.dirtcraft.plugins.dirtessentials.Data.PlayerData;
-import net.dirtcraft.plugins.dirtessentials.Data.PlayerKitTracker;
+import de.tr7zw.changeme.nbtapi.NBTContainer;
+import de.tr7zw.changeme.nbtapi.NBTItem;
+import net.dirtcraft.plugins.dirtessentials.Data.*;
 import net.dirtcraft.plugins.dirtessentials.Database.Callbacks.*;
 import net.dirtcraft.plugins.dirtessentials.DirtEssentials;
+import net.dirtcraft.plugins.dirtessentials.Utils.Utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
 
-import java.net.InetSocketAddress;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,28 +22,33 @@ public class DatabaseOperations {
 	public static void initHomes(final GetHomes getHomesCallback) {
 		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
 			try (Connection connection = Database.getConnection();
-			     PreparedStatement statement = connection.prepareStatement("SELECT * FROM homes")) {
-				ResultSet resultSet = statement.executeQuery();
+			     PreparedStatement getHomesStatement = connection.prepareStatement("SELECT * FROM homes NATURAL JOIN homeData")) {
+				ResultSet resultSet = getHomesStatement.executeQuery();
 
-				Map<UUID, List<Home>> map = new HashMap<>();
+				Map<UUID, PlayerHomeData> map = new HashMap<>();
+				List<Home> homes = new ArrayList<>();
 				while (resultSet.next()) {
-					UUID uuid = UUID.fromString(resultSet.getString("uuid"));
-					String name = resultSet.getString("home");
-					String world = resultSet.getString("world");
-					double x = resultSet.getDouble("x");
-					double y = resultSet.getDouble("y");
-					double z = resultSet.getDouble("z");
-					float yaw = resultSet.getFloat("yaw");
-					float pitch = resultSet.getFloat("pitch");
-
-					Home home = new Home(name, world, x, y, z, yaw, pitch);
-					if (map.containsKey(uuid)) {
-						map.get(uuid).add(home);
-					} else {
-						List<Home> list = new ArrayList<>();
-						list.add(home);
-						map.put(uuid, list);
+					UUID uniqueId = UUID.fromString(resultSet.getString("uniqueId"));
+					if (!map.containsKey(uniqueId)) {
+						map.put(uniqueId, new PlayerHomeData(uniqueId, resultSet.getInt("homesAvailable"), new ArrayList<>()));
 					}
+
+					homes.add(
+							new Home(
+									uniqueId,
+									resultSet.getString("name"),
+									resultSet.getString("world"),
+									resultSet.getDouble("x"),
+									resultSet.getDouble("y"),
+									resultSet.getDouble("z"),
+									resultSet.getFloat("yaw"),
+									resultSet.getFloat("pitch")
+							)
+					);
+				}
+
+				for (Home home : homes) {
+					map.get(home.getUuid()).addHome(home);
 				}
 
 				Bukkit.getScheduler().runTask(DirtEssentials.getPlugin(), () -> getHomesCallback.onSuccess(map));
@@ -53,16 +59,16 @@ public class DatabaseOperations {
 	public static void addHome(final UUID uniqueId, final String name, final Location location, final AddHome addHomeCallback) {
 		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
 			try (Connection connection = Database.getConnection();
-			     PreparedStatement statement = connection.prepareStatement("INSERT INTO homes VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
-				statement.setString(1, uniqueId.toString());
-				statement.setString(2, name);
-				statement.setString(3, location.getWorld().getName());
-				statement.setDouble(4, location.getX());
-				statement.setDouble(5, location.getY());
-				statement.setDouble(6, location.getZ());
-				statement.setFloat(7, location.getYaw());
-				statement.setFloat(8, location.getPitch());
-				statement.executeUpdate();
+			     PreparedStatement addHomeStatement = connection.prepareStatement("INSERT INTO homes VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+				addHomeStatement.setString(1, uniqueId.toString());
+				addHomeStatement.setString(2, name);
+				addHomeStatement.setString(3, location.getWorld().getName());
+				addHomeStatement.setDouble(4, location.getX());
+				addHomeStatement.setDouble(5, location.getY());
+				addHomeStatement.setDouble(6, location.getZ());
+				addHomeStatement.setFloat(7, location.getYaw());
+				addHomeStatement.setFloat(8, location.getPitch());
+				addHomeStatement.executeUpdate();
 
 				Bukkit.getScheduler().runTask(DirtEssentials.getPlugin(), addHomeCallback::onSuccess);
 			} catch (SQLException ignored) { }
@@ -94,7 +100,7 @@ public class DatabaseOperations {
 							resultSet.getString("nickname"),
 							resultSet.getString("lastIpAddress"),
 							resultSet.getBoolean("isStaff"),
-							LocalDateTime.parse(resultSet.getString("leaveDate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+							resultSet.getString("leaveDate") != null ? LocalDateTime.parse(resultSet.getString("leaveDate"), DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null,
 							new Location(
 									Bukkit.getWorld(resultSet.getString("locWorld")),
 									resultSet.getDouble("locX"),
@@ -123,12 +129,12 @@ public class DatabaseOperations {
 				insertStatement.setString(4, address);
 				insertStatement.setBoolean(5, isStaff);
 				insertStatement.setString(6, leaveDate != null ? leaveDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null);
-				insertStatement.setString(7, location != null ? location.getWorld().getName() : null);
-				insertStatement.setDouble(8, location != null ? location.getX() : 0);
-				insertStatement.setDouble(9, location != null ? location.getY() : 0);
-				insertStatement.setDouble(10, location != null ? location.getZ() : 0);
-				insertStatement.setFloat(11, location != null ? location.getYaw() : 0);
-				insertStatement.setFloat(12, location != null ? location.getPitch() : 0);
+				insertStatement.setDouble(7, location != null ? location.getX() : 0);
+				insertStatement.setDouble(8, location != null ? location.getY() : 0);
+				insertStatement.setDouble(9, location != null ? location.getZ() : 0);
+				insertStatement.setFloat(10, location != null ? location.getYaw() : 0);
+				insertStatement.setFloat(11, location != null ? location.getPitch() : 0);
+				insertStatement.setString(12, location != null ? location.getWorld().getName() : null);
 				insertStatement.executeUpdate();
 
 			} catch (SQLException ignored) { }
@@ -153,7 +159,7 @@ public class DatabaseOperations {
 				}
 
 				Bukkit.getScheduler().runTask(DirtEssentials.getPlugin(), () -> initKitsCallback.onSuccess(map));
-			} catch (SQLException ignored) { }
+			} catch (SQLException e) { e.printStackTrace(); }
 		});
 	}
 
@@ -165,7 +171,7 @@ public class DatabaseOperations {
 				statement.setString(2, kitName);
 				statement.setString(3, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 				statement.executeUpdate();
-			} catch (SQLException ignored) { }
+			} catch (SQLException e) { e.printStackTrace(); }
 		});
 	}
 
@@ -175,6 +181,237 @@ public class DatabaseOperations {
 			     PreparedStatement statement = connection.prepareStatement("UPDATE players SET nickname = ? WHERE uuid = ?")) {
 				statement.setString(1, nickname);
 				statement.setString(2, uniqueId.toString());
+				statement.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void initWarps(final InitWarps initWarpsCallback) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("SELECT * FROM warps")) {
+				ResultSet resultSet = statement.executeQuery();
+
+				List<Warp> warps = new ArrayList<>();
+				while (resultSet.next()) {
+					String item = resultSet.getString("item");
+					NBTContainer nbtContainer = new NBTContainer(item);
+					ItemStack itemStack = NBTItem.convertNBTtoItem(nbtContainer);
+
+					Warp warp = new Warp(
+							resultSet.getString("name"),
+							new Location(
+									Bukkit.getWorld(resultSet.getString("world")),
+									resultSet.getDouble("x"),
+									resultSet.getDouble("y"),
+									resultSet.getDouble("z"),
+									resultSet.getFloat("yaw"),
+									resultSet.getFloat("pitch")
+							),
+							itemStack
+					);
+
+					warps.add(warp);
+				}
+
+				Bukkit.getScheduler().runTask(DirtEssentials.getPlugin(), () -> initWarpsCallback.onSuccess(warps));
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void addWarp(final Warp warp) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("INSERT INTO warps VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+				statement.setString(1, warp.getName());
+				statement.setString(2, warp.getLocation().getWorld().getName());
+				statement.setDouble(3, warp.getLocation().getX());
+				statement.setDouble(4, warp.getLocation().getY());
+				statement.setDouble(5, warp.getLocation().getZ());
+				statement.setFloat(6, warp.getLocation().getYaw());
+				statement.setFloat(7, warp.getLocation().getPitch());
+				statement.setString(8, NBTItem.convertItemtoNBT(warp.getIcon()).toString());
+				statement.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void deleteWarp(final String warpName) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("DELETE FROM warps WHERE name = ?")) {
+				statement.setString(1, warpName);
+				statement.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void changeWarpIcon(final String warp, final ItemStack item) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("UPDATE warps SET item = ? WHERE name = ?")) {
+				statement.setString(1, NBTItem.convertItemtoNBT(item).toString());
+				statement.setString(2, warp);
+				statement.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void getSpawn(final GetSpawn getSpawnCallback) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("SELECT * FROM spawn")) {
+				ResultSet resultSet = statement.executeQuery();
+
+				if (resultSet.next()) {
+					Spawn spawn = new Spawn(
+							resultSet.getString("world"),
+							resultSet.getDouble("x"),
+							resultSet.getDouble("y"),
+							resultSet.getDouble("z"),
+							resultSet.getFloat("yaw"),
+							resultSet.getFloat("pitch")
+					);
+
+					Bukkit.getScheduler().runTask(DirtEssentials.getPlugin(), () -> getSpawnCallback.onSuccess(spawn));
+					return;
+				}
+
+				Bukkit.getScheduler().runTask(DirtEssentials.getPlugin(), () -> getSpawnCallback.onSuccess(null));
+			} catch (SQLException e) { e.printStackTrace(); }
+		});
+	}
+
+	public static void setSpawn(final Spawn spawn) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM spawn");
+			     PreparedStatement statement = connection.prepareStatement("INSERT INTO spawn VALUES (?, ?, ?, ?, ?, ?)")) {
+				deleteStatement.executeUpdate();
+
+				statement.setString(1, spawn.getWorld());
+				statement.setDouble(2, spawn.getX());
+				statement.setDouble(3, spawn.getY());
+				statement.setDouble(4, spawn.getZ());
+				statement.setFloat(5, spawn.getYaw());
+				statement.setFloat(6, spawn.getPitch());
+				statement.executeUpdate();
+			} catch (SQLException e) { e.printStackTrace(); }
+		});
+	}
+
+	public static void setHomeBalance(final UUID uuid, final int homeBalance) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("UPDATE homeData SET homesAvailable = ? WHERE uuid = ?")) {
+				statement.setInt(1, homeBalance);
+				statement.setString(2, uuid.toString());
+				statement.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void initAB(final GetAutobroadcast autobroadcastCallback) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("SELECT * FROM autobroadcast")) {
+				ResultSet resultSet = statement.executeQuery();
+
+				List<UUID> autobroadcasts = new ArrayList<>();
+
+				while (resultSet.next()) {
+					autobroadcasts.add(UUID.fromString(resultSet.getString("uuid")));
+				}
+
+				Bukkit.getScheduler().runTask(DirtEssentials.getPlugin(), () -> autobroadcastCallback.onSuccess(autobroadcasts));
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void removeAB(final UUID uuid) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("DELETE FROM autobroadcast WHERE uuid = ?")) {
+				statement.setString(1, uuid.toString());
+				statement.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void addAB(UUID uuid) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("INSERT INTO autobroadcast VALUES (?)")) {
+				statement.setString(1, uuid.toString());
+				statement.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void addNewHomeData(final UUID uniqueId) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("INSERT INTO homeData VALUES (?, ?)")) {
+				statement.setString(1, uniqueId.toString());
+				statement.setInt(2, Utilities.config.home.defaultHomes);
+				statement.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void initNotes(final GetNotes getNotesCallback) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("SELECT * FROM notes")) {
+				ResultSet resultSet = statement.executeQuery();
+
+				Map<UUID, List<Note>> noteMap = new HashMap<>();
+				List<Note> notes = new ArrayList<>();
+				while (resultSet.next()) {
+					notes.add(new Note(
+							UUID.fromString(resultSet.getString("uuid")),
+							resultSet.getString("note"),
+							UUID.fromString(resultSet.getString("addedBy")),
+							LocalDateTime.parse(resultSet.getString("addedOn"), DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+					));
+				}
+
+				for (Note note : notes) {
+					if (noteMap.containsKey(note.getUuid())) {
+						noteMap.get(note.getUuid()).add(note);
+					} else {
+						List<Note> noteList = new ArrayList<>();
+						noteList.add(note);
+						noteMap.put(note.getUuid(), noteList);
+					}
+				}
+
+				Bukkit.getScheduler().runTask(DirtEssentials.getPlugin(), () -> getNotesCallback.onSuccess(noteMap));
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void addNote(final UUID uuid, final Note note) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("INSERT INTO notes VALUES (?, ?, ?, ?)")) {
+				statement.setString(1, uuid.toString());
+				statement.setString(2, note.getNote());
+				statement.setString(3, note.getAddedBy().toString());
+				statement.setString(4, note.getAddedOn().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+				statement.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void removeNote(final UUID uuid, final Note note) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("DELETE FROM notes WHERE uuid = ? AND note = ? AND addedBy = ? AND addedOn = ?")) {
+				statement.setString(1, uuid.toString());
+				statement.setString(2, note.getNote());
+				statement.setString(3, note.getAddedBy().toString());
+				statement.setString(4, note.getAddedOn().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 				statement.executeUpdate();
 			} catch (SQLException ignored) { }
 		});

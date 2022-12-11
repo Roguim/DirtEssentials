@@ -5,6 +5,8 @@ api-version: 1.16
 depend: [ Vault, LuckPerms ]
 authors: [ DeJustinHD ]
 description: Essentials  but better for DirtCraft 1.16+
+load: STARTUP
+
 commands:
     repair:
         description: Repairs your held item
@@ -23,6 +25,7 @@ commands:
         aliases: [ bc ]
     smite:
         description: Smites a player
+        aliases: [ strike, lightning ]
     feed:
         description: Feeds a player
     heal:
@@ -69,8 +72,6 @@ commands:
     craft:
         description: Opens a crafting table
         aliases: [ workbench ]
-    anvil:
-        description: Opens an anvil
     cartographytable:
         description: Opens a cartography table
         aliases: [ cartography ]
@@ -99,6 +100,7 @@ commands:
         description: Enchants an item
     reload:
         description: Reload configs
+        aliases: [ reloadconfig, ereload, erl ]
     createkit:
         description: Creates a kit
     delkit:
@@ -138,6 +140,92 @@ commands:
         aliases: [ iname, rename ]
     lore:
         description: Changes the lore of an item
+    setwarp:
+        description: Sets a warp
+    warp:
+        description: Teleports you to a warp
+    warps:
+        description: Shows all warps
+    delwarp:
+        description: Deletes a warp
+    setwarpicon:
+        description: Sets the icon of a warp
+    whois:
+        description: Shows information about a player
+    listplayers:
+        description: Shows all online players
+        aliases: [ list, players, online ]
+    kickall:
+        description: Kicks all players
+    help:
+        description: Shows help page
+        aliases: [ info ]
+    afk:
+        description: Toggles AFK
+    msg:
+        description: Sends a private message to a player
+        aliases: [ message, tell, t, whisper, w, pm, dm ]
+    reply:
+        description: Replies to the last player that messaged you
+        aliases: [ r ]
+    socialspy:
+        description: Toggles socialspy
+        aliases: [ ss ]
+    msgtoggle:
+        description: Toggles private messages
+        aliases: [ mstoggle ]
+    tptoggle:
+        description: Toggles teleport requests
+        aliases: [ tpt ]
+    tpall:
+        description: Teleports all players to you
+    tp:
+        description: Teleports you to a player
+    tphere:
+        description: Teleports a player to you
+    tpa:
+        description: Sends a teleport request to a player
+    tpaccept:
+        description: Accepts a teleport request
+    tpdeny:
+        description: Denies a teleport request
+    tpahere:
+        description: Sends a teleport request to a player to teleport to you
+    tpacancel:
+        description: Cancels a teleport request
+    spawn:
+        description: Teleports you to the spawn
+    setspawn:
+        description: Sets the spawn
+    worths:
+        description: Shows the link to the worth-page
+    worth:
+        description: Shows the worth of an item
+    homebalance:
+        description: Alter someones home balance
+        aliases: [ hb, hbal, homebal ]
+    toggleautobroadcast:
+        description: Toggles autobroadcast
+        aliases: [ tab, toggleab, abtoggle ]
+    note:
+        description: Adds notes to a player for staff
+        aliases: [ notes ]
+    blockzap:
+        description: Zaps a block at specific coordinates
+    entityzap:
+        description: Zaps an entity at specific coordinates
+    radiuszap:
+        description: Zaps specific entites at specific coordinates
+    respect:
+        description: Sends the f message
+        aliases: [ f ]
+    shrug:
+        description: Sends the shrug message
+        aliases: [ idk, idc ]
+    worldname:
+        description: Shows the name of the world you are in
+    exportrecipes:
+        description: Exports all recipes to a file
 
 permissions:
     dirtessentials.repair:
@@ -202,8 +290,6 @@ permissions:
         description: Allows the player to use /baltop
     dirtessentials.craft:
         description: Allows the player to use /craft
-    dirtessentials.anvil:
-        description: Allows the player to use /anvil
     dirtessentials.cartographytable:
         description: Allows the player to use /cartographytable
     dirtessentials.grindstone:
@@ -268,6 +354,84 @@ permissions:
         description: Allows the player to use /itemname
     dirtessentials.lore:
         description: Allows the player to use /lore
+    dirtessentials.setwarp:
+        description: Allows the player to use /setwarp
+    dirtessentials.warp:
+        description: Allows the player to use /warp
+    dirtessentials.warps:
+        description: Allows the player to use /warps
+    dirtessentials.delwarp:
+        description: Allows the player to use /delwarp
+    dirtessentials.setwarpicon:
+        description: Allows the player to use /setwarpicon
+    dirtessentials.whois:
+        description: Allows the player to use /whois
+    dirtessentials.listplayers:
+        description: Allows the player to use /list
+    dirtessentials.kickall:
+        description: Allows the player to use /kickall
+    dirtessentials.kickall.exempt:
+        description: Prevents the player from being kicked by /kickall
+    dirtessentials.help:
+        description: Allows the player to use /help
+    dirtessentials.afk:
+        description: Allows the player to use /afk
+    dirtessentials.afk.bypasskick:
+        description: Prevents the player from being kicked by being afk for too long
+    dirtessentials.msg:
+        description: Allows the player to use /msg and all its aliases
+    dirtessentials.reply:
+        description: Allows the player to use /reply and all its aliases
+    dirtessentials.socialspy:
+        description: Allows the player to use /socialspy
+    dirtessentials.msgtoggle:
+        description: Allows the player to use /msgtoggle
+    dirtessentials.tptoggle:
+        description: Allows the player to use /tptoggle
+    dirtessentials.tpall:
+        description: Allows the player to use /tpall
+    dirtessentials.tp:
+        description: Allows the player to use /tp
+    dirtessentials.tphere:
+        description: Allows the player to use /tphere
+    dirtessentials.tpa:
+        description: Allows the player to use /tpa
+    dirtessentials.tpaccept:
+        description: Allows the player to use /tpaccept
+    dirtessentials.tpdeny:
+        description: Allows the player to use /tpdeny
+    dirtessentials.tpahere:
+        description: Allows the player to use /tpahere
+    dirtessentials.tpacancel:
+        description: Allows the player to use /tpacancel
+    dirtessentials.spawn:
+        description: Allows the player to use /spawn
+    dirtessentials.spawn.other:
+        description: Allows the player to use /spawn on other players
+    dirtessentials.setspawn:
+        description: Allows the player to use /setspawn
+    dirtessentials.worths:
+        description: Allows the player to use /worths
+    dirtessentials.worth:
+        description: Allows the player to use /worth
+    dirtessentials.world.*:
+        description: Allows the player to use teleport commands to all worlds
+    dirtessentials.homebalance:
+        description: Allows the player to use /homebalance
+    dirtessentials.toggleautobroadcast:
+        description: Allows the player to use /toggleautobroadcast
+    dirtessentials.note:
+        description: Allows the player to use /note
+    dirtessentials.blockzap:
+        description: Allows the player to use /blockzap
+    dirtessentials.entityzap:
+        description: Allows the player to use /entityzap
+    dirtessentials.radiuszap:
+        description: Allows the player to use /radiuszap
+    dirtessentials.worldname:
+        description: Allows the player to use /worldname
+    dirtessentials.exportrecipes:
+        description: Allows the player to use /exportrecipes
 
 
     dirtessentials.admin:
@@ -304,7 +468,6 @@ permissions:
             dirtessentials.eco: true
             dirtessentials.baltop: true
             dirtessentials.craft: true
-            dirtessentials.anvil: true
             dirtessentials.cartographytable: true
             dirtessentials.grindstone: true
             dirtessentials.loom: true
@@ -337,3 +500,42 @@ permissions:
             dirtessentials.othernick: true
             dirtessentials.itemname: true
             dirtessentials.lore: true
+            dirtessentials.setwarp: true
+            dirtessentials.warp: true
+            dirtessentials.warps: true
+            dirtessentials.delwarp: true
+            dirtessentials.setwarpicon: true
+            dirtessentials.whois: true
+            dirtessentials.listplayers: true
+            dirtessentials.kickall: true
+            dirtessentials.kickall.exempt: true
+            dirtessentials.help: true
+            dirtessentials.afk: true
+            dirtessentials.afk.bypasskick: true
+            dirtessentials.msg: true
+            dirtessentials.reply: true
+            dirtessentials.socialspy: true
+            dirtessentials.msgtoggle: true
+            dirtessentials.tptoggle: true
+            dirtessentials.tpall: true
+            dirtessentials.tp: true
+            dirtessentials.tphere: true
+            dirtessentials.tpa: true
+            dirtessentials.tpaccept: true
+            dirtessentials.tpdeny: true
+            dirtessentials.tpahere: true
+            dirtessentials.tpacancel: true
+            dirtessentials.spawn: true
+            dirtessentials.spawn.other: true
+            dirtessentials.setspawn: true
+            dirtessentials.worths: true
+            dirtessentials.worth: true
+            dirtessentials.world.*: true
+            dirtessentials.homebalance: true
+            dirtessentials.toggleautobroadcast: true
+            dirtessentials.note: true
+            dirtessentials.blockzap: true
+            dirtessentials.entityzap: true
+            dirtessentials.radiuszap: true
+            dirtessentials.worldname: true
+            dirtessentials.exportrecipes: true

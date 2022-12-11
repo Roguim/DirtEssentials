@@ -1,0 +1,91 @@
+# This file contains custom Join/Leave messages for normal players & staff
+
+[join]
+    # Special messages when a player joins for the first time
+    firstJoin = [
+        "&7[&5+&7] &dWelcome &6{PLAYER} &dto &cDirtCraft&d! The dirtiest crafters around!",
+        "&7[&5+&7] &dThere is a new sheriff in town! Welcome &6{PLAYER}",
+        "&7[&5+&7] &dHave you seen the new guy? &6{PLAYER}",
+        "&7[&5+&7] &dLet us all welcome &6{PLAYER} &dto the server! Im sure they dont bite",
+        "&7[&5+&7] &dGive it up for the newcomer, &6{PLAYER}"
+    ]
+
+    # Normal messages that will be displayed when a player joins the server
+    normal = [
+        "&7[&a+&7] &6{PLAYER} &7wandered in",
+        "&7[&a+&7] &6{PLAYER} &7phased in",
+        "&7[&a+&7] &7This is &6{PLAYER}&7. Teleport successful",
+        "&7[&a+&7] &6{PLAYER} &7has all their limbs accounted for",
+        "&7[&a+&7] &6{PLAYER} &7has entered the fray",
+        "&7[&a+&7] &6{PLAYER} &7has crash landed",
+        "&7[&a+&7] &6{PLAYER} &7warped into the server",
+        "&7[&a+&7] &6{PLAYER} &7bringing the lag",
+        "&7[&a+&7] &6{PLAYER} &7has decided to show their face",
+        "&7[&a+&7] &6{PLAYER} &7has made a fantastic entrance",
+        "&7[&a+&7] &6{PLAYER} &7joined. Not again...",
+        "&7[&a+&7] &6{PLAYER} &7joined. Hide your diamonds",
+        "&7[&a+&7] &6{PLAYER} &7joined. Here we go again...",
+        "&7[&a+&7] &7Another day on DirtCraft and &6{PLAYER} &7shows up to ruin everything",
+        "&7[&a+&7] &6{PLAYER} &7decided not to be anti-social",
+        "&7[&a+&7] &7Brace yourselves, &6{PLAYER} &7is coming!",
+        "&7[&a+&7] &6{PLAYER} &7is back in town",
+        "&7[&a+&7] &7Who is that player? ... Itssssssss &6{PLAYER}&7!",
+        "&7[&a+&7] &6{PLAYER} &7decided to land on DirtCraft, will they find epic tier loot?",
+        "&7[&a+&7] &6{PLAYER} &7joined. Herobrines minions grow stronger",
+        "&7[&a+&7] &6{PLAYER} &7joined from the fifth dimension",
+        "&7[&a+&7] &6{PLAYER} &7has joined the land of make believe!",
+        "&7[&a+&7] &6{PLAYER} &7was promised cookies if they joined",
+        "&7[&a+&7] &6{PLAYER} &7decided to come back after all",
+        "&7[&a+&7] &6{PLAYER} &7joined and he cannot lie",
+        "&7[&a+&7] &6{PLAYER} &7has joined to play in the dirt",
+        "&7[&a+&7] &6{PLAYER} &7feels like playing with blocks",
+    ]
+
+    # Staff messages that will be displayed when a staff member joins the server
+    staff = [
+        "&7[&3+&7] &7Looks like &6{PLAYER} &7has come to delete the lag",
+        "&7[&3+&7] &6{PLAYER} &7is online. Turn off the lag machines!",
+        "&7[&3+&7] &7Quiet ye petty squabbles! &6{PLAYER} &7has arrived",
+        "&7[&3+&7] &7First mate &6{PLAYER} &7reporting for duty!"
+    ]
+
+[leave]
+    # Normal messages that will be displayed when a player leaves the server
+    normal = [
+        "&7[&c-&7] &6{PLAYER} &7threw in the towel",
+        "&7[&c-&7] &6{PLAYER} &7fled",
+        "&7[&c-&7] &6{PLAYER} &7turned tail and ran",
+        "&7[&c-&7] &6{PLAYER} &7scarpered",
+        "&7[&c-&7] &6{PLAYER} &7left. Peace and quiet",
+        "&7[&c-&7] &6{PLAYER} &7left. Betrayal!",
+        "&7[&c-&7] &6{PLAYER} &7decided to be anti-social",
+        "&7[&c-&7] &6{PLAYER} &7has had enough of you lot",
+        "&7[&c-&7] &6{PLAYER} &7tripped into non-existence",
+        "&7[&c-&7] &6{PLAYER} &7left us, just like Notch did",
+        "&7[&c-&7] &6{PLAYER} &7just popped like a balloon",
+        "&7[&c-&7] &6{PLAYER} &7left. Herobrines minions grow weaker",
+        "&7[&c-&7] &6{PLAYER} &7left to construct more pylons",
+        "&7[&c-&7] &6{PLAYER} &7took the train to splitsville",
+        "&7[&c-&7] &6{PLAYER} &7decided we arent good enough for them",
+        "&7[&c-&7] &6{PLAYER} &7thinks sleep is more important",
+        "&7[&c-&7] &6{PLAYER} &7has to go be an adult",
+        "&7[&c-&7] &6{PLAYER} &7has an urgent call of nature",
+        "&7[&c-&7] &6{PLAYER} &7needs to eat",
+        "&7[&c-&7] &6{PLAYER}&7s mom called them for dinner",
+        "&7[&c-&7] &7Screen time for &6{PLAYER} &7is over for today",
+        "&7[&c-&7] &6{PLAYER} &7is off to pump some weights",
+        "&7[&c-&7] &6{PLAYER} &7thinks youre not worth their time",
+        "&7[&c-&7] &7Boy! Thank god &6{PLAYER} &7is gone, now we can get back to talking about them",
+        "&7[&c-&7] &6{PLAYER} &7burnt out",
+        "&7[&c-&7] &6{PLAYER} &7QQd",
+        "&7[&c-&7] &6{PLAYER} &7left. Some cause happiness wherever they go, others whenever they go",
+        "&7[&c-&7] &6{PLAYER} &7no longer feels like playing with blocks"
+    ]
+
+    # Staff messages that will be displayed when a staff member leaves the server
+    staff = [
+        "&7[&4-&7] &7Oh look everyone! &6{PLAYER} &7has left the server. Time to break the rules again!",
+        "&7[&4-&7] &6{PLAYER} &7has left the server. Everything must have been fixed",
+        "&7[&4-&7] &7Captain &6{PLAYER} &7overboard!",
+        "&7[&4-&7] &6{PLAYER} &7has left us behind. May the Great Almighty have mercy on our souls",
+    ]
