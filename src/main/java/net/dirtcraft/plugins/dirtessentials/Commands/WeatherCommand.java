@@ -46,7 +46,7 @@ public class WeatherCommand implements CommandExecutor, TabCompleter {
 		World world = argLength == 3 ? Bukkit.getWorld(args[2]) : player.getWorld();
 		String weather = args[0];
 		int duration = 6000;
-		if (argLength > 1 && Utilities.isInteger(args[2])) {
+		if (argLength > 1 && Utilities.isInteger(args[1])) {
 			duration = Integer.parseInt(args[2]) * 20;
 
 			if (duration > 20000000 || duration < 0) {
@@ -94,13 +94,13 @@ public class WeatherCommand implements CommandExecutor, TabCompleter {
 			return arguments;
 
 		if (args.length == 1) {
-			arguments.addAll(Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toCollection(ArrayList::new)));
-		} else if (args.length == 2) {
 			arguments.add("clear");
 			arguments.add("rain");
 			arguments.add("thunder");
-		} else if (args.length == 3) {
+		} else if (args.length == 2) {
 			arguments.add("duration");
+		} else if (args.length == 3) {
+			arguments.addAll(Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toCollection(ArrayList::new)));
 		}
 
 		List<String> tabResults = new ArrayList<>();

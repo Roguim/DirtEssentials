@@ -104,4 +104,7 @@ public class Permissions {
 	public static final String RADIUSZAP = "dirtessentials.radiuszap";
 	public static final String WORLDNAME = "dirtessentials.worldname";
 	public static final String EXPORTRECIPES = "dirtessentials.exportrecipes";
+	public static final String LISTAUTOBROADCASTS = "dirtessentials.listautobroadcasts";
+	public static final String BILL = "dirtessentials.bill";
+	public static final String RESETPLAYERDATA = "dirtessentials.resetplayerdata";
 }

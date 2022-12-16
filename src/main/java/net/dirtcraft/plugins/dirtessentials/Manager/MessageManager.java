@@ -92,19 +92,19 @@ public class MessageManager implements Listener {
 				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.GOLD + "Name" + ChatColor.GRAY + ": " + ChatColor.AQUA + target.getName())));
 
 		BaseComponent[] senderMessage = new ComponentBuilder()
-				.append(ChatColor.GRAY + "[").event((HoverEvent) null)
-				.append(ChatColor.GOLD + "Me").event((HoverEvent) null)
+				.append(ChatColor.GOLD + "[").event((HoverEvent) null)
+				.append(ChatColor.RED + "Me").event((HoverEvent) null)
 				.append(ChatColor.GRAY + " \u25ba ").event((HoverEvent) null)
 				.append(targetComponent.create())
-				.append(ChatColor.GRAY + "] ").event((HoverEvent) null)
+				.append(ChatColor.GOLD + "] ").event((HoverEvent) null)
 				.append(TextComponent.fromLegacyText(Utilities.translate(message, false))).create();
 
 		BaseComponent[] targetMessage = new ComponentBuilder()
-				.append(ChatColor.GRAY + "[").event((HoverEvent) null)
+				.append(ChatColor.GOLD + "[").event((HoverEvent) null)
 				.append(senderComponent.create())
 				.append(ChatColor.GRAY + " \u25ba ").event((HoverEvent) null)
-				.append(ChatColor.GOLD + "Me").event((HoverEvent) null)
-				.append(ChatColor.GRAY + "] ").event((HoverEvent) null)
+				.append(ChatColor.RED + "Me").event((HoverEvent) null)
+				.append(ChatColor.GOLD + "] ").event((HoverEvent) null)
 				.append(TextComponent.fromLegacyText(Utilities.translate(message, false))).create();
 
 		sender.spigot().sendMessage(senderMessage);

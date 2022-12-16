@@ -105,24 +105,26 @@ public class AfkManager implements Listener {
 
 	private static void checkAfk() {
 		afkTask = Bukkit.getScheduler().runTaskTimer(DirtEssentials.getPlugin(), () -> {
-			for (Map.Entry<UUID, Long> entry : activePlayers.entrySet()) {
-				if (System.currentTimeMillis() - entry.getValue() >= Utilities.config.general.afkTime * 1000L) {
-					setAfk(entry.getKey());
+			Map<UUID, Long> active = new HashMap<>(activePlayers);
+			active.forEach((key, value) -> {
+				if (System.currentTimeMillis() - value >= Utilities.config.general.afkTime * 1000L) {
+					setAfk(key);
 				}
-			}
+			});
 
 			if (!Utilities.config.general.afkKick) return;
 
-			for (Map.Entry<UUID, Long> entry : afkPlayers.entrySet()) {
-				if (System.currentTimeMillis() - entry.getValue() >= Utilities.config.general.afkKickTime * 1000L) {
-					Player player = Bukkit.getPlayer(entry.getKey());
-					if (player == null) continue;
+			Map<UUID, Long> afk = new HashMap<>(afkPlayers);
+			afk.forEach((key, value) -> {
+				if (System.currentTimeMillis() - value >= Utilities.config.general.afkKickTime * 1000L) {
+					Player player = Bukkit.getPlayer(key);
+					if (player == null) return;
 
-					if (player.hasPermission(Permissions.AFK_BYPASSKICK)) continue;
+					if (player.hasPermission(Permissions.AFK_BYPASSKICK)) return;
 
 					player.kickPlayer(Utilities.translate(Utilities.config.general.afkKickMessage, false));
 				}
-			}
+			});
 		}, 0, 20);
 	}
 }

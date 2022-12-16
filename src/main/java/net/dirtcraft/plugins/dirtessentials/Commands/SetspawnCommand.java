@@ -3,6 +3,7 @@ package net.dirtcraft.plugins.dirtessentials.Commands;
 import net.dirtcraft.plugins.dirtessentials.Manager.SpawnManager;
 import net.dirtcraft.plugins.dirtessentials.Utils.Permissions;
 import net.dirtcraft.plugins.dirtessentials.Utils.Strings;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,6 +25,7 @@ public class SetspawnCommand implements CommandExecutor {
 
 		Player player = (Player) sender;
 		SpawnManager.setLocation(player.getLocation());
+		Bukkit.getWorld(player.getWorld().getName()).setSpawnLocation(player.getLocation());
 		player.sendMessage(Strings.PREFIX + "Spawn set!");
 		return true;
 	}

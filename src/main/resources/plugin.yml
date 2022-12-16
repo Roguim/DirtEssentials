@@ -226,6 +226,13 @@ commands:
         description: Shows the name of the world you are in
     exportrecipes:
         description: Exports all recipes to a file
+    listautobroadcasts:
+        description: Lists all autobroadcasts
+        aliases: [ lab, listab ]
+    bill:
+        description: Bills a player
+    resetplayerdata:
+        description: Resets all or a specific player's data
 
 permissions:
     dirtessentials.repair:
@@ -432,6 +439,152 @@ permissions:
         description: Allows the player to use /worldname
     dirtessentials.exportrecipes:
         description: Allows the player to use /exportrecipes
+    dirtessentials.listautobroadcasts:
+        description: Allows the player to use /listautobroadcasts
+    dirtessentials.bill:
+        description: Allows the player to use /bill
+    dirtessentials.resetplayerdata:
+        description: Allows the player to use /resetplayerdata
+
+    dirtessentials.common:
+        description: Default permission for all players
+        children:
+            dirtessentials.unalive: true
+            dirtessentials.trash: true
+            dirtessentials.bal: true
+            dirtessentials.pay: true
+            dirtessentials.baltop: true
+            dirtessentials.kits: true
+            dirtessentials.sethome: true
+            dirtessentials.home: true
+            dirtessentials.delhome: true
+            dirtessentials.homes: true
+            dirtessentials.back: true
+            dirtessentials.seen: true
+            dirtessentials.warp: true
+            dirtessentials.warps: true
+            dirtessentials.listplayers: true
+            dirtessentials.help: true
+            dirtessentials.afk: true
+            dirtessentials.msg: true
+            dirtessentials.reply: true
+            dirtessentials.msgtoggle: true
+            dirtessentials.tpa: true
+            dirtessentials.tpaccept: true
+            dirtessentials.tpdeny: true
+            dirtessentials.tpahere: true
+            dirtessentials.tpacancel: true
+            dirtessentials.spawn: true
+            dirtessentials.worths: true
+            dirtessentials.worth: true
+            dirtessentials.homebalance: true
+            dirtessentials.toggleautobroadcast: true
+            dirtessentials.bill: true
+
+    dirtessentials.helper:
+        description: Helper permissions
+        children:
+            dirtessentials.unalive: true
+            dirtessentials.trash: true
+            dirtessentials.bal: true
+            dirtessentials.pay: true
+            dirtessentials.baltop: true
+            dirtessentials.kits: true
+            dirtessentials.sethome: true
+            dirtessentials.home: true
+            dirtessentials.delhome: true
+            dirtessentials.homes: true
+            dirtessentials.back: true
+            dirtessentials.seen: true
+            dirtessentials.warp: true
+            dirtessentials.warps: true
+            dirtessentials.listplayers: true
+            dirtessentials.help: true
+            dirtessentials.afk: true
+            dirtessentials.msg: true
+            dirtessentials.reply: true
+            dirtessentials.msgtoggle: true
+            dirtessentials.tpa: true
+            dirtessentials.tpaccept: true
+            dirtessentials.tpdeny: true
+            dirtessentials.tpahere: true
+            dirtessentials.tpacancel: true
+            dirtessentials.spawn: true
+            dirtessentials.worths: true
+            dirtessentials.worth: true
+            dirtessentials.homebalance: true
+            dirtessentials.toggleautobroadcast: true
+            dirtessentials.fly: true
+            dirtessentials.gms: true
+            dirtessentials.gmsp: true
+            dirtessentials.bal.others: true
+            dirtessentials.otherhome: true
+            dirtessentials.staff: true
+            dirtessentials.tppos: true
+            dirtessentials.nick: true
+            dirtessentials.socialspy: true
+            dirtessentials.tp: true
+            dirtessentials.note: true
+            dirtessentials.whois: true
+            dirtessentials.listautobroadcasts: true
+            dirtessentials.bill: true
+
+    dirtessentials.moderator:
+        description: Moderator permissions
+        children:
+            dirtessentials.unalive: true
+            dirtessentials.trash: true
+            dirtessentials.bal: true
+            dirtessentials.pay: true
+            dirtessentials.baltop: true
+            dirtessentials.kits: true
+            dirtessentials.sethome: true
+            dirtessentials.home: true
+            dirtessentials.delhome: true
+            dirtessentials.homes: true
+            dirtessentials.back: true
+            dirtessentials.seen: true
+            dirtessentials.warp: true
+            dirtessentials.warps: true
+            dirtessentials.listplayers: true
+            dirtessentials.help: true
+            dirtessentials.afk: true
+            dirtessentials.msg: true
+            dirtessentials.reply: true
+            dirtessentials.msgtoggle: true
+            dirtessentials.tpa: true
+            dirtessentials.tpaccept: true
+            dirtessentials.tpdeny: true
+            dirtessentials.tpahere: true
+            dirtessentials.tpacancel: true
+            dirtessentials.spawn: true
+            dirtessentials.worths: true
+            dirtessentials.worth: true
+            dirtessentials.homebalance: true
+            dirtessentials.toggleautobroadcast: true
+            dirtessentials.fly: true
+            dirtessentials.gms: true
+            dirtessentials.gmsp: true
+            dirtessentials.bal.others: true
+            dirtessentials.otherhome: true
+            dirtessentials.staff: true
+            dirtessentials.tppos: true
+            dirtessentials.nick: true
+            dirtessentials.socialspy: true
+            dirtessentials.tp: true
+            dirtessentials.note: true
+            dirtessentials.whois: true
+            dirtessentials.enderchest: true
+            dirtessentials.enderchest.others: true
+            dirtessentials.top: true
+            dirtessentials.smite: true
+            dirtessentials.fly.others: true
+            dirtessentials.kill: true
+            dirtessentials.clear: true
+            dirtessentials.speed: true
+            dirtessentials.spawn.other: true
+            dirtessentials.listautobroadcasts: true
+            dirtessentials.bill: true
 
 
     dirtessentials.admin:
@@ -539,3 +692,5 @@ permissions:
             dirtessentials.radiuszap: true
             dirtessentials.worldname: true
             dirtessentials.exportrecipes: true
+            dirtessentials.listautobroadcasts: true
+            dirtessentials.bill: true

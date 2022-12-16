@@ -109,10 +109,12 @@ public class SeenCommand implements CommandExecutor, TabCompleter {
 		sender.sendMessage("");
 		sender.sendMessage(ChatColor.GRAY + "Player " + ChatColor.GOLD + player.getUsername() + ChatColor.GRAY + " has been " + ChatColor.RED + "offline" + ChatColor.GRAY + " since " + ChatColor.DARK_AQUA + time + ChatColor.GRAY + ".");
 		sender.sendMessage("");
-		sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " UUID" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(uuidComponent).create());
-		sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " IP Address" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(ipComponent).create());
-		sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " Last Location" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(locationComponent).create());
-		sender.sendMessage("");
+		if (sender.hasPermission(Permissions.STAFF)) {
+			sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " UUID" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(uuidComponent).create());
+			sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " IP Address" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(ipComponent).create());
+			sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " Last Location" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(locationComponent).create());
+			sender.sendMessage("");
+		}
 	}
 
 	private void printOnlineSeen(CommandSender sender, PlayerData player) {
@@ -137,10 +139,12 @@ public class SeenCommand implements CommandExecutor, TabCompleter {
 		sender.sendMessage("");
 		sender.sendMessage(ChatColor.GRAY + "Player " + ChatColor.GOLD + player.getUsername() + ChatColor.GRAY + " is currently " + ChatColor.GREEN + "online" + ChatColor.GRAY + ".");
 		sender.sendMessage("");
-		sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " UUID" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(uuidComponent).create());
-		sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " IP Address" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(ipComponent).create());
-		sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " Last Location" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(locationComponent).create());
-		sender.sendMessage("");
+		if (sender.hasPermission(Permissions.STAFF)) {
+			sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " UUID" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(uuidComponent).create());
+			sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " IP Address" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(ipComponent).create());
+			sender.spigot().sendMessage(new ComponentBuilder().append(ChatColor.GOLD + " Last Location" + ChatColor.GRAY + ": ").event((HoverEvent) null).event((ClickEvent) null).append(locationComponent).create());
+			sender.sendMessage("");
+		}
 	}
 
 	@Nullable

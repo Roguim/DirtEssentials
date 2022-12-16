@@ -416,4 +416,48 @@ public class DatabaseOperations {
 			} catch (SQLException ignored) { }
 		});
 	}
+
+	public static void resetAllPlayerData() {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("DELETE FROM players");
+			     PreparedStatement statement1 = connection.prepareStatement("DELETE FROM balances");
+			     PreparedStatement statement2 = connection.prepareStatement("DELETE FROM kit_tracker");
+			     PreparedStatement statement3 = connection.prepareStatement("DELETE FROM homeData");
+			     PreparedStatement statement4 = connection.prepareStatement("DELETE FROM homes");
+			     PreparedStatement statement5 = connection.prepareStatement("DELETE FROM autobroadcast")) {
+				statement.executeUpdate();
+				statement1.executeUpdate();
+				statement2.executeUpdate();
+				statement3.executeUpdate();
+				statement4.executeUpdate();
+				statement5.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
+
+	public static void resetPlayerData(final UUID uniqueId) {
+		Bukkit.getScheduler().runTaskAsynchronously(DirtEssentials.getPlugin(), () -> {
+			try (Connection connection = Database.getConnection();
+			     PreparedStatement statement = connection.prepareStatement("DELETE FROM players WHERE uuid = ?");
+			     PreparedStatement statement1 = connection.prepareStatement("DELETE FROM balances WHERE uuid = ?");
+			     PreparedStatement statement2 = connection.prepareStatement("DELETE FROM kit_tracker WHERE uuid = ?");
+			     PreparedStatement statement3 = connection.prepareStatement("DELETE FROM homeData WHERE uuid = ?");
+			     PreparedStatement statement4 = connection.prepareStatement("DELETE FROM homes WHERE uuid = ?");
+			     PreparedStatement statement5 = connection.prepareStatement("DELETE FROM autobroadcast WHERE uuid = ?")) {
+				statement.setString(1, uniqueId.toString());
+				statement1.setString(1, uniqueId.toString());
+				statement2.setString(1, uniqueId.toString());
+				statement3.setString(1, uniqueId.toString());
+				statement4.setString(1, uniqueId.toString());
+				statement5.setString(1, uniqueId.toString());
+				statement.executeUpdate();
+				statement1.executeUpdate();
+				statement2.executeUpdate();
+				statement3.executeUpdate();
+				statement4.executeUpdate();
+				statement5.executeUpdate();
+			} catch (SQLException ignored) { }
+		});
+	}
 }

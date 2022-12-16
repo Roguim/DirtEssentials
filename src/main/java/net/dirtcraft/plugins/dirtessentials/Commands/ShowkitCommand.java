@@ -16,6 +16,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -107,12 +108,11 @@ public class ShowkitCommand implements CommandExecutor, TabCompleter, Listener {
 		return true;
 	}
 
-	@EventHandler
+	@EventHandler (priority = EventPriority.HIGH)
 	public void onInventoryClick(InventoryClickEvent event) {
 		if (event.getClickedInventory() == null) return;
 		if (!event.getInventory().equals(inventory)) return;
 		event.setCancelled(true);
-		event.setResult(InventoryClickEvent.Result.DENY);
 	}
 
 	@Nullable

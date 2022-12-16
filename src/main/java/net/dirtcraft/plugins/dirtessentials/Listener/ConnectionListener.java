@@ -36,6 +36,7 @@ public class ConnectionListener implements Listener {
 			CjmManager.joinMessage(event, player.hasPermission(Permissions.STAFF), false);
 		} else {
 			player.teleport(SpawnManager.getLocation());
+			player.setBedSpawnLocation(SpawnManager.getLocation(), true);
 			CjmManager.joinMessage(event, player.hasPermission(Permissions.STAFF), true);
 			DirtEssentials.getDirtEconomy().createPlayerAccount(player);
 			HomeManager.addNewHomeData(player.getUniqueId());

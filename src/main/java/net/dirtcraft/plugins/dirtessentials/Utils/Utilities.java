@@ -290,6 +290,11 @@ public class Utilities {
 		DirtEssentials.getPlugin().getCommand("shrug").setExecutor(new ShrugCommand());
 		DirtEssentials.getPlugin().getCommand("worldname").setExecutor(new WorldnameCommand());
 		DirtEssentials.getPlugin().getCommand("exportrecipes").setExecutor(new ExportrecipesCommand());
+		DirtEssentials.getPlugin().getCommand("listautobroadcasts").setExecutor(new ListautobroadcastsCommand());
+		DirtEssentials.getPlugin().getCommand("bill").setExecutor(new BillCommand());
+		DirtEssentials.getPlugin().getCommand("bill").setTabCompleter(new BillCommand());
+		DirtEssentials.getPlugin().getCommand("resetplayerdata").setExecutor(new ResetPlayerDataCommand());
+		DirtEssentials.getPlugin().getCommand("resetplayerdata").setTabCompleter(new ResetPlayerDataCommand());
 	}
 
 	public static void registerListeners() {
