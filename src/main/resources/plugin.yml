@@ -215,7 +215,7 @@ commands:
     entityzap:
         description: Zaps an entity at specific coordinates
     radiuszap:
-        description: Zaps specific entites at specific coordinates
+        description: Zaps blocks in a radius around specific coordinates
     respect:
         description: Sends the f message
         aliases: [ f ]
