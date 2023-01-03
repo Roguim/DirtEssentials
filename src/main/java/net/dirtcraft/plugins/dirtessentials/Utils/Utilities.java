@@ -295,6 +295,7 @@ public class Utilities {
 		DirtEssentials.getPlugin().getCommand("bill").setTabCompleter(new BillCommand());
 		DirtEssentials.getPlugin().getCommand("resetplayerdata").setExecutor(new ResetPlayerDataCommand());
 		DirtEssentials.getPlugin().getCommand("resetplayerdata").setTabCompleter(new ResetPlayerDataCommand());
+		DirtEssentials.getPlugin().getCommand("kickall").setExecutor(new KickallCommand());
 	}
 
 	public static void registerListeners() {
