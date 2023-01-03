@@ -348,7 +348,9 @@ permissions:
     dirtessentials.back:
         description: Allows the player to use /back
     dirtessentials.otherhome:
-        description: Allows the player to use /otherhome
+        description: Allows the player to use /otherhome <IGN> list and teleport
+    dirtessentials.delhome.other:
+        description: Allows the player to use /otherhome <IGN> delete
     dirtessentials.staff:
         description: Marks the player as staff
     dirtessentials.tppos:
@@ -650,6 +652,7 @@ permissions:
             dirtessentials.sethome: true
             dirtessentials.home: true
             dirtessentials.delhome: true
+            dirtessentials.delhome.other: true
             dirtessentials.homes: true
             dirtessentials.back: true
             dirtessentials.otherhome: true
