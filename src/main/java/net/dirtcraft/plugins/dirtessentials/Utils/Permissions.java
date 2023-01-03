@@ -107,4 +107,6 @@ public class Permissions {
 	public static final String LISTAUTOBROADCASTS = "dirtessentials.listautobroadcasts";
 	public static final String BILL = "dirtessentials.bill";
 	public static final String RESETPLAYERDATA = "dirtessentials.resetplayerdata";
+	public static final String BUYHOME = "dirtessentials.buyhome";
+	public static final String GC = "dirtessentials.gc";
 }

@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -13,6 +14,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class BackManager implements Listener {
 	private static final Map<UUID, Location> backLocations = new HashMap<>();
@@ -36,15 +38,18 @@ public class BackManager implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler (priority = EventPriority.HIGH)
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
 		World world = player.getWorld();
 
+		String worldname = world.getName();
+		String environment = world.getEnvironment().toString();
+
 		if (Utilities.config.general.backWorldsWhitelist) {
-			if (!Utilities.config.general.backWorlds.contains(world.getName())) return;
+			if (!Utilities.config.general.backWorlds.contains(worldname + ":" + environment)) return;
 		} else {
-			if (Utilities.config.general.backWorlds.contains(world.getName())) return;
+			if (Utilities.config.general.backWorlds.contains(worldname + ":" + environment)) return;
 		}
 
 		BackManager.setBackLocation(player.getUniqueId(), player.getLocation());

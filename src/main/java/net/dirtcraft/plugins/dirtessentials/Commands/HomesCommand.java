@@ -39,6 +39,11 @@ public class HomesCommand implements CommandExecutor {
 			return true;
 		}
 
+		if (args.length > 0 && !Utilities.isInteger(args[0])) {
+			player.sendMessage(Strings.PREFIX + "Please enter a valid page number!");
+			return true;
+		}
+
 		int listEntries = Math.min(Utilities.config.home.homesSize, 15);
 		int page = args.length > 0 ? Integer.parseInt(args[0]) : 1;
 

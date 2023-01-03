@@ -233,6 +233,10 @@ commands:
         description: Bills a player
     resetplayerdata:
         description: Resets all or a specific player's data
+    buyhome:
+        description: Buys a home
+    gc:
+        description: Shows the garbage collector stats
 
 permissions:
     dirtessentials.repair:
@@ -445,6 +449,10 @@ permissions:
         description: Allows the player to use /bill
     dirtessentials.resetplayerdata:
         description: Allows the player to use /resetplayerdata
+    dirtessentials.buyhome:
+        description: Allows the player to use /buyhome
+    dirtessentials.gc:
+        description: Allows the player to use /gc
 
     dirtessentials.common:
         description: Default permission for all players
@@ -514,6 +522,7 @@ permissions:
             dirtessentials.worth: true
             dirtessentials.homebalance: true
             dirtessentials.toggleautobroadcast: true
+            dirtessentials.bill: true
             dirtessentials.fly: true
             dirtessentials.gms: true
             dirtessentials.gmsp: true
@@ -527,7 +536,7 @@ permissions:
             dirtessentials.note: true
             dirtessentials.whois: true
             dirtessentials.listautobroadcasts: true
-            dirtessentials.bill: true
+            dirtessentials.gc: true
 
     dirtessentials.moderator:
         description: Moderator permissions
@@ -562,6 +571,7 @@ permissions:
             dirtessentials.worth: true
             dirtessentials.homebalance: true
             dirtessentials.toggleautobroadcast: true
+            dirtessentials.bill: true
             dirtessentials.fly: true
             dirtessentials.gms: true
             dirtessentials.gmsp: true
@@ -574,6 +584,8 @@ permissions:
             dirtessentials.tp: true
             dirtessentials.note: true
             dirtessentials.whois: true
+            dirtessentials.listautobroadcasts: true
+            dirtessentials.gc: true
             dirtessentials.enderchest: true
             dirtessentials.enderchest.others: true
             dirtessentials.top: true
@@ -581,11 +593,7 @@ permissions:
             dirtessentials.fly.others: true
             dirtessentials.kill: true
             dirtessentials.clear: true
-            dirtessentials.speed: true
             dirtessentials.spawn.other: true
-            dirtessentials.listautobroadcasts: true
-            dirtessentials.bill: true
-
 
     dirtessentials.admin:
         description: Common permissions for admins
@@ -693,4 +701,5 @@ permissions:
             dirtessentials.worldname: true
             dirtessentials.exportrecipes: true
             dirtessentials.listautobroadcasts: true
-            dirtessentials.bill: true
+            dirtessentials.buyhome: true
+            dirtessentials.gc: true

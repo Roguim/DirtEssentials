@@ -97,7 +97,8 @@ public class MessageManager implements Listener {
 				.append(ChatColor.GRAY + " \u25ba ").event((HoverEvent) null)
 				.append(targetComponent.create())
 				.append(ChatColor.GOLD + "] ").event((HoverEvent) null)
-				.append(TextComponent.fromLegacyText(Utilities.translate(message, false))).create();
+				.append(ChatColor.RESET + "")
+				.append(Utilities.translate(message, true)).create();
 
 		BaseComponent[] targetMessage = new ComponentBuilder()
 				.append(ChatColor.GOLD + "[").event((HoverEvent) null)
@@ -105,7 +106,8 @@ public class MessageManager implements Listener {
 				.append(ChatColor.GRAY + " \u25ba ").event((HoverEvent) null)
 				.append(ChatColor.RED + "Me").event((HoverEvent) null)
 				.append(ChatColor.GOLD + "] ").event((HoverEvent) null)
-				.append(TextComponent.fromLegacyText(Utilities.translate(message, false))).create();
+				.append(ChatColor.RESET + "")
+				.append(Utilities.translate(message, true)).create();
 
 		sender.spigot().sendMessage(senderMessage);
 		target.spigot().sendMessage(targetMessage);

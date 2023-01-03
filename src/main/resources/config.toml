@@ -40,15 +40,16 @@
     afkKickTime = 240
 
     # The message that is sent to the player when he is kicked for being afk
-    # Default: "&4You have been kicked for being afk for too long!"
-    afkKickMessage = "&4You have been kicked for being afk for too long!"
+    # Default: "&cYou have been kicked for being afk for too long!"
+    afkKickMessage = "&cYou have been kicked for being afk for too long!"
 
     # Worlds that people may or may not save the death point for /back
-    # Default: ["world", "world/DIM1", "world/DIM-1"]
+    # You'll have to add the environment after the world name to make it work properly
+    # Default: ["world:NORMAL", "world/DIM1:END", "world/DIM-1:NETHER"]
     backWorlds = [
-        "world",
-        "world/DIM1",
-        "world/DIM-1"
+        "world:NORMAL",
+        "world/DIM1:END",
+        "world/DIM-1:NETHER"
     ]
 
     # Wether the above list should be a whitelist or a blacklist
@@ -85,6 +86,23 @@
     # Max: 15
     # Default: 10
     homesSize = 10
+
+    # If the /buyhome command should be enabled
+    # Default: true
+    buyHomeEnabled = true
+
+    # If buying a home costs money or an item
+    # Default: "ITEM"
+    # Possible values: "ITEM", "MONEY"
+    buyHomeType = "ITEM"
+
+    # The item and amount that is required to buy a home
+    # Default: "minecraft:emerald 1"
+    buyHomeItem = "minecraft:emerald 1"
+
+    # The amount of money that is required to buy a home
+    # Default: 1000
+    buyHomeMoney = 1000
 
 [worth]
     # The identifier of the server

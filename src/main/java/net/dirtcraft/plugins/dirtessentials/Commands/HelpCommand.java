@@ -80,15 +80,35 @@ public class HelpCommand implements CommandExecutor, TabCompleter {
 		page.getContent().forEach(line -> {
 			Matcher matcher = pattern.matcher(line);
 			if (matcher.find()) {
-				String commandName = matcher.group().replace("[", "").replace("]", "");
-				BaseComponent[] commandEntry = new ComponentBuilder()
-						.append(Utilities.translate(commandName, false))
-						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.DARK_AQUA + "\u2139 " + ChatColor.GRAY + "Click to run this command!")))
-						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Utilities.translate(commandName, true))).create();
+				if (matcher.group().startsWith("[http")) {
+					String url = matcher.group().substring(1, matcher.group().length() - 1);
+					BaseComponent[] urlEntry = new ComponentBuilder()
+							.append(ChatColor.BLUE + "" + ChatColor.ITALIC + url + ChatColor.RESET)
+							.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.DARK_AQUA + "\u2139 " + ChatColor.GRAY + "Click to open this link!")))
+							.event(new ClickEvent(ClickEvent.Action.OPEN_URL, url)).create();
 
-				builder.append(Utilities.translate(line.substring(0, matcher.start()), false)).event((ClickEvent) null).event((HoverEvent) null).append(commandEntry).append(Utilities.translate(line.substring(matcher.end()), false)).event((ClickEvent) null).event((HoverEvent) null).append("\n");
+					builder.append(" ").append(line.substring(0, matcher.start()))
+							.event((ClickEvent) null).event((HoverEvent) null)
+							.append(urlEntry)
+							.append(Utilities.translate(line.substring(matcher.end()), false))
+							.event((ClickEvent) null).event((HoverEvent) null)
+							.append("\n");
+				} else {
+					String commandName = matcher.group().substring(1, matcher.group().length() - 1);
+					BaseComponent[] commandEntry = new ComponentBuilder()
+							.append(Utilities.translate(commandName, false))
+							.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.DARK_AQUA + "\u2139 " + ChatColor.GRAY + "Click to run this command!")))
+							.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Utilities.translate(commandName, true))).create();
+
+					builder.append(" ").append(Utilities.translate(line.substring(0, matcher.start()), false))
+							.event((ClickEvent) null).event((HoverEvent) null)
+							.append(commandEntry)
+							.append(Utilities.translate(line.substring(matcher.end()), false))
+							.event((ClickEvent) null).event((HoverEvent) null)
+							.append("\n");
+				}
 			} else {
-				builder.append(Utilities.translate(line, false)).append("\n");
+				builder.append(" ").append(Utilities.translate(line, false)).append("\n");
 			}
 		});
 

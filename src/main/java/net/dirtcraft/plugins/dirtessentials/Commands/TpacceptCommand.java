@@ -49,6 +49,8 @@ public class TpacceptCommand implements CommandExecutor {
 			player.sendMessage(Strings.PREFIX + ChatColor.GRAY + "You have been teleported to " + ChatColor.GOLD + target.getName() + ChatColor.GRAY + "!");
 		}
 
+		TeleportManager.removeOpenTpRequest(player.getUniqueId());
+
 		return true;
 	}
 }

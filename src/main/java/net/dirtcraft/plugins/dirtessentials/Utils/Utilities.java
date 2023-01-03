@@ -11,6 +11,7 @@ import net.dirtcraft.plugins.dirtessentials.Config.*;
 import net.dirtcraft.plugins.dirtessentials.DirtEssentials;
 import net.dirtcraft.plugins.dirtessentials.Commands.*;
 import net.dirtcraft.plugins.dirtessentials.Listener.ConnectionListener;
+import net.dirtcraft.plugins.dirtessentials.Listener.MagmaFixListener;
 import net.dirtcraft.plugins.dirtessentials.Manager.AfkManager;
 import net.dirtcraft.plugins.dirtessentials.Manager.BackManager;
 import net.dirtcraft.plugins.dirtessentials.Manager.MessageManager;
@@ -275,8 +276,8 @@ public class Utilities {
 		DirtEssentials.getPlugin().getCommand("worths").setExecutor(new WorthsCommand());
 		DirtEssentials.getPlugin().getCommand("worth").setExecutor(new WorthCommand());
 		DirtEssentials.getPlugin().getCommand("worth").setTabCompleter(new WorthCommand());
-		DirtEssentials.getPlugin().getCommand("homebalance").setExecutor(new Homebalance());
-		DirtEssentials.getPlugin().getCommand("homebalance").setTabCompleter(new Homebalance());
+		DirtEssentials.getPlugin().getCommand("homebalance").setExecutor(new HomebalanceCommand());
+		DirtEssentials.getPlugin().getCommand("homebalance").setTabCompleter(new HomebalanceCommand());
 		DirtEssentials.getPlugin().getCommand("toggleautobroadcast").setExecutor(new ToggleautobroadcastCommand());
 		DirtEssentials.getPlugin().getCommand("note").setExecutor(new NoteCommand());
 		DirtEssentials.getPlugin().getCommand("note").setTabCompleter(new NoteCommand());
@@ -295,6 +296,8 @@ public class Utilities {
 		DirtEssentials.getPlugin().getCommand("bill").setTabCompleter(new BillCommand());
 		DirtEssentials.getPlugin().getCommand("resetplayerdata").setExecutor(new ResetPlayerDataCommand());
 		DirtEssentials.getPlugin().getCommand("resetplayerdata").setTabCompleter(new ResetPlayerDataCommand());
+		DirtEssentials.getPlugin().getCommand("buyhome").setExecutor(new BuyhomeCommand());
+		DirtEssentials.getPlugin().getCommand("gc").setExecutor(new GcCommand());
 	}
 
 	public static void registerListeners() {
@@ -306,6 +309,7 @@ public class Utilities {
 		DirtEssentials.getPlugin().getServer().getPluginManager().registerEvents(new WarpsCommand(), DirtEssentials.getPlugin());
 		DirtEssentials.getPlugin().getServer().getPluginManager().registerEvents(new AfkManager(), DirtEssentials.getPlugin());
 		DirtEssentials.getPlugin().getServer().getPluginManager().registerEvents(new MessageManager(), DirtEssentials.getPlugin());
+		DirtEssentials.getPlugin().getServer().getPluginManager().registerEvents(new MagmaFixListener(), DirtEssentials.getPlugin());
 	}
 
 	public static void log(Level level, String msg) {

@@ -39,7 +39,7 @@ public class HomeManager {
 	}
 
 	public static int getAvailableHomeCount(UUID uniqueId) {
-		return homes.get(uniqueId).getHomesAvailable();
+		return homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).getHomesAvailable();
 	}
 
 	public static void addNewHomeData(UUID uniqueId) {
@@ -48,46 +48,57 @@ public class HomeManager {
 	}
 
 	public static boolean hasAvailableHomes(UUID uniqueId) {
-		return homes.get(uniqueId).getHomes().size() < homes.get(uniqueId).getHomesAvailable();
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		return homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).getHomes().size() < homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).getHomesAvailable();
 	}
 
 	public static boolean hasHome(UUID uniqueId, String home) {
-		return homes.get(uniqueId).getHomes().stream().anyMatch(h -> h.getName().equalsIgnoreCase(home));
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		return homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).getHomes().stream().anyMatch(h -> h.getName().equalsIgnoreCase(home));
 	}
 
 	public static void addHome(UUID uniqueId, String name, Location location) {
-		homes.get(uniqueId).addHome(new Home(uniqueId, name, location.getWorld().getName(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).addHome(new Home(uniqueId, name, location.getWorld().getName(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
 	}
 
 	public static boolean hasHomes(UUID uniqueId) {
-		return homes.get(uniqueId).getHomes().size() > 0;
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		return homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).getHomes().size() > 0;
 	}
 
 	public static Home getHome(UUID uniqueId, String name) {
-		return homes.get(uniqueId).getHomes().stream().filter(h -> h.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		return homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).getHomes().stream().filter(h -> h.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
 	}
 
 	public static List<Home> getHomes(UUID uniqueId) {
-		return homes.get(uniqueId).getHomes();
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		return homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).getHomes();
 	}
 
 	public static void removeHome(UUID uniqueId, String name) {
-		homes.get(uniqueId).getHomes().removeIf(h -> h.getName().equalsIgnoreCase(name));
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).getHomes().removeIf(h -> h.getName().equalsIgnoreCase(name));
 	}
 
-	public static void addHomeBalance(UUID uuid, int amount) {
-		homes.get(uuid).setHomesAvailable(homes.get(uuid).getHomesAvailable() + amount);
+	public static void addHomeBalance(UUID uniqueId, int amount) {
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).setHomesAvailable(homes.get(uniqueId).getHomesAvailable() + amount);
 	}
 
-	public static int getHomeBalance(UUID uuid) {
-		return homes.get(uuid).getHomesAvailable();
+	public static int getHomeBalance(UUID uniqueId) {
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		return homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).getHomesAvailable();
 	}
 
-	public static void removeHomeBalance(UUID uuid, int amount) {
-		homes.get(uuid).setHomesAvailable(homes.get(uuid).getHomesAvailable() - amount);
+	public static void removeHomeBalance(UUID uniqueId, int amount) {
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).setHomesAvailable(homes.get(uniqueId).getHomesAvailable() - amount);
 	}
 
-	public static void setHomeBalance(UUID uuid, int amount) {
-		homes.get(uuid).setHomesAvailable(amount);
+	public static void setHomeBalance(UUID uniqueId, int amount) {
+		if (!homes.containsKey(uniqueId)) addNewHomeData(uniqueId);
+		homes.getOrDefault(uniqueId, new PlayerHomeData(uniqueId, Utilities.config.home.defaultHomes, new ArrayList<>())).setHomesAvailable(amount);
 	}
 }
