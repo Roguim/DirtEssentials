@@ -28,7 +28,7 @@ public class DatabaseOperations {
 				Map<UUID, PlayerHomeData> map = new HashMap<>();
 				List<Home> homes = new ArrayList<>();
 				while (resultSet.next()) {
-					UUID uniqueId = UUID.fromString(resultSet.getString("uniqueId"));
+					UUID uniqueId = UUID.fromString(resultSet.getString("uuid"));
 					if (!map.containsKey(uniqueId)) {
 						map.put(uniqueId, new PlayerHomeData(uniqueId, resultSet.getInt("homesAvailable"), new ArrayList<>()));
 					}
@@ -36,7 +36,7 @@ public class DatabaseOperations {
 					homes.add(
 							new Home(
 									uniqueId,
-									resultSet.getString("name"),
+									resultSet.getString("home"),
 									resultSet.getString("world"),
 									resultSet.getDouble("x"),
 									resultSet.getDouble("y"),
@@ -52,7 +52,7 @@ public class DatabaseOperations {
 				}
 
 				Bukkit.getScheduler().runTask(DirtEssentials.getPlugin(), () -> getHomesCallback.onSuccess(map));
-			} catch (SQLException ignored) { }
+			} catch (SQLException e) { e.printStackTrace(); }
 		});
 	}
 

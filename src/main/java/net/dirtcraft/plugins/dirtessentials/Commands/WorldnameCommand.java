@@ -28,14 +28,23 @@ public class WorldnameCommand implements CommandExecutor {
 			return false;
 		}
 
-		String worldName = ((Player) sender).getWorld().getName();
-		BaseComponent[] message = new ComponentBuilder()
+		Player player = (Player) sender;
+		String worldName = player.getWorld().getName();
+		String environment = player.getWorld().getEnvironment().toString();
+		BaseComponent[] worldMessage = new ComponentBuilder()
 				.append(ChatColor.GOLD + "World" + ChatColor.GRAY + ": ")
 				.append(ChatColor.GREEN + worldName)
 				.event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, worldName))
 				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.BLUE + "Click to copy"))).create();
 
-		sender.spigot().sendMessage(message);
+		BaseComponent[] worldEnvironment = new ComponentBuilder()
+				.append(ChatColor.GOLD + "Environment" + ChatColor.GRAY + ": ")
+				.append(ChatColor.GREEN + environment)
+				.event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, environment))
+				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.BLUE + "Click to copy"))).create();
+
+		sender.spigot().sendMessage(worldMessage);
+		sender.spigot().sendMessage(worldEnvironment);
 		return true;
 	}
 }

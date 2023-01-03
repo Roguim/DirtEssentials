@@ -102,7 +102,7 @@ public class SeenCommand implements CommandExecutor, TabCompleter {
 
 		BaseComponent[] locationComponent = new ComponentBuilder()
 				.append(ChatColor.GRAY + player.getLastLocation().getWorld().getName() + ", " + ChatColor.AQUA + player.getLastLocation().getBlockX() + ", " + player.getLastLocation().getBlockY() + ", " + player.getLastLocation().getBlockZ())
-				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tppos " + player.getLastLocation().getWorld().getName() + " " + player.getLastLocation().getX() + " " + player.getLastLocation().getY() + " " + player.getLastLocation().getZ() + " " + player.getLastLocation().getYaw() + " " + player.getLastLocation().getPitch()))
+				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tppos " + player.getLastLocation().getX() + " " + player.getLastLocation().getY() + " " + player.getLastLocation().getZ() + " " + player.getLastLocation().getWorld().getName() + " " + player.getLastLocation().getYaw() + " " + player.getLastLocation().getPitch()))
 				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.BLUE + "\u2139" + ChatColor.DARK_AQUA + " Click to teleport!")))
 				.create();
 

@@ -110,8 +110,8 @@ public class ShowkitCommand implements CommandExecutor, TabCompleter, Listener {
 
 	@EventHandler (priority = EventPriority.HIGH)
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (event.getClickedInventory() == null) return;
 		if (!event.getInventory().equals(inventory)) return;
+		if (event.getClickedInventory() == null) return;
 		event.setCancelled(true);
 	}
 

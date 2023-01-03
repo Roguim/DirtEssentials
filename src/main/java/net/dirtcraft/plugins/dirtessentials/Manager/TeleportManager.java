@@ -36,7 +36,8 @@ public class TeleportManager {
 
 	public static void removeOpenTpRequest(UUID uniqueId) {
 		if (hasTpaRequest(uniqueId)) teleportRequests.remove(uniqueId);
-		else if (hasTpahereRequest(uniqueId)) teleportRequests.remove(getTpahereRequest(uniqueId));
+
+		if (hasTpahereRequest(uniqueId)) teleportRequests.remove(getTpahereRequest(uniqueId));
 	}
 
 	public static void addRequest(UUID player, UUID target) {

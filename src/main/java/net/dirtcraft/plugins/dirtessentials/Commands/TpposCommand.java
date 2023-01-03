@@ -32,21 +32,21 @@ public class TpposCommand implements CommandExecutor, TabCompleter {
 			return true;
 		}
 
-		if (args.length < 4) {
-			sender.sendMessage(Strings.USAGE + "/tppos <world> <x> <y> <z> [yaw] [pitch]");
+		if (args.length < 3) {
+			sender.sendMessage(Strings.USAGE + "/tppos <x> <y> <z> [world] [yaw] [pitch]");
 			return true;
 		}
 
-		String worldString = args[0];
+		String worldString = args.length > 3 ? args[3] : ((Player) sender).getWorld().getName();
 		World world = Bukkit.getWorld(worldString);
 		if (world == null) {
 			sender.sendMessage(Strings.WORLD_NOT_FOUND);
 			return true;
 		}
 
-		String xString = args[1];
-		String yString = args[2];
-		String zString = args[3];
+		String xString = args[0];
+		String yString = args[1];
+		String zString = args[2];
 
 		if (!Utilities.isDouble(xString) || !Utilities.isDouble(yString) || !Utilities.isDouble(zString)) {
 			sender.sendMessage(Strings.INVALID_COORDINATES);
@@ -93,13 +93,13 @@ public class TpposCommand implements CommandExecutor, TabCompleter {
 		if (!sender.hasPermission(Permissions.TPPOS)) return arguments;
 
 		if (args.length == 1) {
-			arguments.addAll(Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toCollection(ArrayList::new)));
-		} else if (args.length == 2) {
 			arguments.add("<x>");
-		} else if (args.length == 3) {
+		} else if (args.length == 2) {
 			arguments.add("<y>");
-		} else if (args.length == 4) {
+		} else if (args.length == 3) {
 			arguments.add("<z>");
+		} else if (args.length == 4) {
+			arguments.addAll(Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toCollection(ArrayList::new)));
 		} else if (args.length == 5) {
 			arguments.add("[yaw]");
 		} else if (args.length == 6) {

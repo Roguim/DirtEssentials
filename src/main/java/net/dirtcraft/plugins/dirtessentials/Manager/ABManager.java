@@ -59,28 +59,23 @@ public class ABManager {
 			int random = ThreadLocalRandom.current().nextInt(0, autoBroadcasts.size());
 
 			Broadcast broadcast = autoBroadcasts.get(random);
-
 			if (broadcast.message.size() == 0) return;
 
 			ComponentBuilder builder = new ComponentBuilder();
-
 			for (String line : broadcast.message) {
 				builder.append(TextComponent.fromLegacyText(Utilities.translate(line, false))).append("\n");
 			}
 
-			ComponentBuilder message = new ComponentBuilder();
-			message.append(builder.create());
-
 			if (!broadcast.clickEvent.equals("") && !broadcast.clickEventValue.equals("")) {
 				try {
-					message.event(new ClickEvent(ClickEvent.Action.valueOf(broadcast.clickEvent), broadcast.clickEventValue));
+					builder.event(new ClickEvent(ClickEvent.Action.valueOf(broadcast.clickEvent), broadcast.clickEventValue));
 				} catch (IllegalArgumentException e) {
 					DirtEssentials.getPlugin().getLogger().warning("Invalid click event type: " + broadcast.clickEvent);
 				}
 			}
 
 			if (!broadcast.hoverEventText.equals("")) {
-				message.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(Utilities.translate(broadcast.hoverEventText, false))));
+				builder.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(Utilities.translate(broadcast.hoverEventText, false))));
 			}
 
 			Bukkit.getOnlinePlayers().forEach(player -> {

@@ -65,8 +65,8 @@ public class WarpsCommand implements CommandExecutor, Listener {
 
 	@EventHandler (priority = EventPriority.HIGH)
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (event.getClickedInventory() == null) return;
 		if (!event.getInventory().equals(warpMenu)) return;
+		if (event.getClickedInventory() == null) return;
 
 		event.setCancelled(true);
 		if (event.getClickedInventory().equals(event.getView().getTopInventory())) {

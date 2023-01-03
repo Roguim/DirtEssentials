@@ -36,6 +36,7 @@ public final class DirtEssentials extends JavaPlugin {
 		KitManager.init();
 		ABManager.init();
 		NoteManager.init();
+		GcManager.init();
 
 		RegisteredServiceProvider<Chat> rsp = plugin.getServer().getServicesManager().getRegistration(Chat.class);
 		chat = rsp.getProvider();
@@ -44,6 +45,7 @@ public final class DirtEssentials extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Database.closeDatabase();
+		GcManager.stopTpsCalculator();
 		vaultHook.unhook();
 	}
 

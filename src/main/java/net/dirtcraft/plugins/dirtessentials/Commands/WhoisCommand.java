@@ -68,7 +68,7 @@ public class WhoisCommand implements CommandExecutor, TabCompleter {
 		sender.spigot().sendMessage(
 				new ComponentBuilder(ChatColor.GOLD + " - Location" + ChatColor.GRAY + ": ")
 						.append(ChatColor.BLUE + target.getLocation().getWorld().getName() + " " + ChatColor.AQUA + target.getLocation().getBlockX() + " " + target.getLocation().getBlockY() + " " + target.getLocation().getBlockZ())
-						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tppos " + target.getLocation().getWorld().getName() + " " + target.getLocation().getX() + " " + target.getLocation().getY() + " " + target.getLocation().getZ() + " " + target.getLocation().getYaw() + " " + target.getLocation().getPitch()))
+						.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tppos " + target.getLocation().getX() + " " + target.getLocation().getY() + " " + target.getLocation().getZ() + " " + target.getLocation().getWorld().getName() + " " + target.getLocation().getYaw() + " " + target.getLocation().getPitch()))
 						.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.BLUE + "\u2139" + ChatColor.GRAY + " Click to teleport!"))).create()
 		);
 		sender.sendMessage(ChatColor.GOLD + " - Staff" + ChatColor.GRAY + ": " + ChatColor.DARK_PURPLE + PlayerManager.getPlayerData(target.getUniqueId()).isStaff());
@@ -79,6 +79,7 @@ public class WhoisCommand implements CommandExecutor, TabCompleter {
 		sender.sendMessage(ChatColor.GOLD + " - God Mode" + ChatColor.GRAY + ": " + ChatColor.DARK_PURPLE + GodCommand.getGodPlayers().contains(target.getUniqueId()));
 		sender.sendMessage(ChatColor.GOLD + " - Home Limit" + ChatColor.GRAY + ": " + ChatColor.AQUA + HomeManager.getAvailableHomeCount(target.getUniqueId()));
 		sender.sendMessage(ChatColor.GOLD + " - Autobroadcasts" + ChatColor.GRAY + ": " + (ABManager.hasABDisabled(target.getUniqueId()) ? ChatColor.RED + "Disabled" : ChatColor.GREEN + "Enabled"));
+		sender.sendMessage("");
 
 		return true;
 	}
