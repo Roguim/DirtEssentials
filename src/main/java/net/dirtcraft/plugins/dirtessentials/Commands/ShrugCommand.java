@@ -23,8 +23,8 @@ public class ShrugCommand implements CommandExecutor {
 			messageString.append(args[i]).append(" ");
 		}
 		messageString.append("\u00AF\\_(\u30C4)_/\u00AF");
-		
-		((Player) sender).chat(messageString);
+
+		((Player) sender).chat(messageString.toString());
 		return true;
 	}
 }
