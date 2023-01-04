@@ -30,7 +30,7 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
 			return true;
 		}
 
-		Player target = (Player) sender;
+		Player target;
 
 		if (!sender.hasPermission(Permissions.SPAWN_OTHER)) {
 			target = (Player) sender;
